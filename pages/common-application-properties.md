@@ -198,4 +198,4 @@ Here is a documentation for those properties:
 生成的应用也可以有自己的springboot配置。这是优先推荐的，也是应用的类型安全的配置，同时在IDE中自动补全（配置）和生成文档 。
 
 JHipster has generated a `ApplicationProperties` class in the `config` package, which is already preconfigured, and it is already documented at the bottom the `application.yml`, `application-dev.yml` and `application-prod.yml` files. All you need to do is code your own specific properties.
-JHipster在 `config`包里面生成类`ApplicationProperties`，这个类已经做了预配置，同时也在`application.yml`, `application-dev.yml` 和 `application-prod.yml`文件的底部也做了文档。开发者所需要的做的是配置自己所要用的配置，
+JHipster在 `config`包里面生成类`ApplicationProperties`，这个类已经做了预配置，同时也在`application.yml`, `application-dev.yml` 和 `application-prod.yml`文件的底部也做了文档。开发者所需要的做的是配置自己所要用的配置。
