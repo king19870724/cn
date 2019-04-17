@@ -7,59 +7,63 @@ sitemap:
     lastmod: 2018-03-18T18:20:00-00:00
 ---
 
-# <i class="fa fa-flask"></i> Common application properties
+# <i class="fa fa-flask"></i> 通用应用属性
 
-JHipster generates a Spring Boot application, and can be configured using the standard Spring Boot properties mechanism.
+JHipster生成的SpringBoot应用可以使用标准的SpringBoot配置文件机制。
 
-Those properties are configured at generation-time by JHipster, and often have different values in development and production modes: learn more about this in our [Profiles documentation]({{ site.url }}/profiles/).
+这些配置在JHipster生成时创建，并且在开发和生产配置上配置不同，相关说明在[Profiles documentation]({{ site.url }}/profiles/).
 
-In a JHipster application, there are three kinds of properties:
+在一个JHipster应用中，有3中配置文件
 
 1. [Spring Boot standard application properties](#1)
 2. [JHipster application properties](#2)
 3. [Application-specific properties](#3)
 
-## <a name="1"></a> Spring Boot standard application properties
+## <a name="1"></a> SpringBoot标准应用配置文件
 
 Like any Spring Boot application, JHipster allows you to configure any standard [Spring Boot application property](http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html).
+和其他Springboot应用一样，JHipster允许开发者配置标准的[SpringBoot应用配置](http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html).
 
-## <a name="2"></a> JHipster application properties
-
-JHipster provides specific application properties, which come from the [JHipster server-side library](https://github.com/jhipster/jhipster). Those properties are standard for all JHipster projects, but some of them only work depending on what you selected when you built your application: for example the `jhipster.cache.hazelcast` key only works if you selected Hazelcast as your 2nd-level Hibernate cache.
+## <a name="2"></a> JHipster应用配置
+ 
+JHipster也提供了特有的应用配置，详情可见 [JHipster server-side library](https://github.com/jhipster/jhipster)。这些配置也是JHipster的标准，但也有一部分依赖于你在创建项目时的选择：比如 `jhipster.cache.hazelcast` 只有在Hazelcast 你选择了2级hibernate缓存。
 
 Those properties are configured using the `io.github.jhipster.config.JHipsterProperties` class.
+这些配置使用类`io.github.jhipster.config.JHipsterProperties`创建。
 
 Here is a documentation for those properties:
+这是这些配置的文档：
 
     jhipster:
 
         # Thread pool that will be used for asynchronous method calls in JHipster
+		# 用于JHipster异步方法调用的线程池
         async:
-            core-pool-size: 2 # Initial pool size
-            max-pool-size: 50 # Maximum pool size
-            queue-capacity: 10000 # Queue capacity of the pool
+            core-pool-size: 2 # 初始大小
+            max-pool-size: 50 # 最大容量
+            queue-capacity: 10000 # 线程池最大队列量
 
-        # Specific configuration for JHipster gateways
-        # See https://www.jhipster.tech/api-gateway/ for more information on JHipster gateways
+		# JHipster网关的具体配置
+		# 见 https://www.jhipster.tech/api-gateway/ 获取更多信息
         gateway:
             rate-limiting:
-                enabled: false # Rate limiting is disabled by default
-                limit: 100_000L # By default we allow 100,000 API calls
-                duration-in-seconds: 3_600 # By default the rate limiting is reinitialized every hour
-            authorized-microservices-endpoints: # Access Control Policy, if left empty for a route, all endpoints will be accessible
-                app1: /api # recommended prod configuration, it allows the access to all API calls from the "app1" microservice
+                enabled: false #是否在默认情况下禁用速率限制
+                limit: 100_000L # 默认最多同时有100,000 API 
+                duration-in-seconds: 3_600 # 默认速率限制每小时初始化一次
+            authorized-microservices-endpoints: # 访问控制策略，如为空则全部节点都能访问
+                app1: /api #推荐在生产环境下配置 这允许来自于“app1”微服务的全部请求
 
         # HTTP configuration
         http:
-            # V_1_1 for HTTP/1.1 or V_2_0 for HTTP/2.
-            # To use HTTP/2 you will need SSL support (see the Spring Boot "server.ssl" configuration)
+			# V_1_1 针对于 HTTP/1.1 or V_2_0 针对于 HTTP/2.
+			# 为试用 HTTP/2 你需要用到ssl支持 （见 springboot 的server.ssl配置 ）
             version: V_1_1
-            #Force the server cipher suite to follow the exact order specifying in server.ssl.ciphers (For perfect forward secrecy)
+            #强制服务端密码套件使用server.ssl.ciphers (为了完美的安全)
             useUndertowUserCipherSuitesOrder: true
-            cache: # Used by io.github.jhipster.web.filter.CachingHttpHeadersFilter
-                timeToLiveInDays: 1461 # Static assets are cached for 4 years by default
+            cache: #为 io.github.jhipster.web.filter.CachingHttpHeadersFilter 使用
+                timeToLiveInDays: 1461 # 默认静态资源缓存4年
 
-        # Hibernate 2nd level cache, used by CacheConfiguration
+        #  缓存配置使用的Hibernate 2级缓存
         cache:
             hazelcast: # Hazelcast configuration
                 time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
@@ -189,8 +193,9 @@ Here is a documentation for those properties:
             # Comma-separated list of profiles that display a ribbon
             display-on-active-profiles: dev
 
-## <a name="3"></a> Application-specific properties
-
-Your generated application can also have its own Spring Boot properties. This is highly recommended, as it allows type-safe configuration of the application, as well as auto-completion and documentation within an IDE.
+## <a name="3"></a> 特定的应用程序配置
+ 
+生成的应用也可以有自己的springboot配置。这是优先推荐的，也是应用的类型安全的配置，同时在IDE中自动补全（配置）和生成文档 。
 
 JHipster has generated a `ApplicationProperties` class in the `config` package, which is already preconfigured, and it is already documented at the bottom the `application.yml`, `application-dev.yml` and `application-prod.yml` files. All you need to do is code your own specific properties.
+JHipster在 `config`包里面生成类`ApplicationProperties`，这个类已经做了预配置，同时也在`application.yml`, `application-dev.yml` 和 `application-prod.yml`文件的底部也做了文档。开发者所需要的做的是配置自己所要用的配置，
